@@ -1,0 +1,3 @@
+sh
+-c
+cd ~/grader && sudo docker build -t gitlab-registry.oit.duke.edu/%path . && sudo docker push gitlab-registry.oit.duke.edu/%path

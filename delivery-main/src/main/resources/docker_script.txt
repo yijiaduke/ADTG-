@@ -1,0 +1,3 @@
+sh
+-c
+cd ~/grader && ls && echo Hello World

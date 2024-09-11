@@ -1,0 +1,40 @@
+# stages:
+#   - run
+# # Run the Java program
+# run_java_program:
+#   stage: run
+#   image: gitlab-registry.oit.duke.edu/jpastorino/adtg-test/student1:latest
+#   services:
+#     - docker:dind
+#   variables:
+#     DOCKER_HOST: "tcp://docker:2375"
+#     DOCKER_TLS_CERTDIR: ""
+#   script:
+#     - ls
+#     - gradle build
+#     - gradle runJava --args="testcase student1"  # Execute the gradle task with the arguments
+#   artifacts:
+#     paths:
+#       - report.txt 
+stages:
+  - run
+
+run_java_program:
+  stage: run
+  image: gitlab-registry.oit.duke.edu/%title_path:latest
+  services:
+    - docker:dind
+  variables:
+    DOCKER_HOST: "tcp://docker:2375"
+    DOCKER_TLS_CERTDIR: ""
+  script:
+    - echo "Running inside Docker container..."
+    # - ls -la /app  # List files to check contents
+    - cd /app
+    - ./gradlew runJava --args="%testcase %repo_name"
+  # artifacts:
+  #   paths:
+  #     - /app/build/reports/tests/test/index.html  # Adjust to the correct path
+  #   when: always  # Save artifacts even if the job fails
+  # allow_failure: false  # Ensure the job fails if the script fails
+
